@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.openqa.selenium.chrome.ChromeOptions;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -13,14 +13,22 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LoginAutomationTest {
-
     private static WebDriver driver;
 
     @BeforeAll
     static void setup() {
-        // Set up WebDriver 
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        // Set up WebDriver using WebDriverManager with specific version management
+        WebDriverManager.chromedriver().clearDriverCache().setup();
+        
+        // Configure Chrome options
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        // Add additional options if needed
+        // options.addArguments("--no-sandbox");
+        // options.addArguments("--disable-dev-shm-usage");
+        
+        // Initialize ChromeDriver with options
+        driver = new ChromeDriver(options);
     }
 
     @Test
@@ -44,7 +52,8 @@ class LoginAutomationTest {
             String expectedTitle = "PRODUCTS";
             String actualTitle = inventoryPageTitle.getText();
 
-            assertEquals(expectedTitle.toLowerCase(), actualTitle.toLowerCase(), "Login test failed: Title mismatch.");
+            assertEquals(expectedTitle.toLowerCase(), actualTitle.toLowerCase(), 
+                "Login test failed: Title mismatch.");
         } catch (Exception e) {
             e.printStackTrace();
             throw new AssertionError("Login test failed due to an exception.");
@@ -55,8 +64,7 @@ class LoginAutomationTest {
     void testWelcomeMessage() {
         // Created an instance of App
         App app = new App();
-
-    
+        
         String result = app.welcomeMessage("Aakash");
 
         // Validating the result
