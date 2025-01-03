@@ -16,7 +16,7 @@ class AppTest {
     @Test
     void testWelcomeMessage() {
         App app = new App();
-        String name = "Utkarsh";
+        String name = "Aakash";
         String expected = "Hello, Aakash!";
         String actual = app.welcomeMessage(name);
         assertEquals(expected, actual, "Welcome message should include the user's name.");
