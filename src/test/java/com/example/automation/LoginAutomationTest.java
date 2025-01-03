@@ -19,7 +19,7 @@ class LoginAutomationTest {
     @BeforeAll
     static void setup() {
         // Set up WebDriver 
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\Aakash\\Downloads\\chromedriver-win64 (1)\\chromedriver-win64");
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
 
